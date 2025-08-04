@@ -49,6 +49,31 @@ docker-compose exec php bash
 composer install
 ```
 
+## timezoneの変更
+- src/configにあるapp.phpの'timezone'を日本時間に変更する
+```php
+// 変更前
+'timezone' => 'UTC',
+// 変更後
+'timezone' => 'Asia/Tokyo',
+```
+- php artisan tinker で時刻を確認
+```php
+// PHPコンテナ内にて
+php artisan tinker
+// 以下のコマンドを入力
+echo Carbon\Carbon::now();
+```
+以下のように現在時刻が出力されることを確認する。<br>
+output
+```php
+2022-04-05 17:26:36
+```
+- 時刻が合わない場合は、以下のコマンドで設定を反映させて再度確認する
+```php
+php artisan config:clear
+```
+
 ## .envファイルの作成
 - .env.exampleファイルをコピーして.envファイルを作成
 ```php

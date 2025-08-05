@@ -29,7 +29,7 @@ git push origin main
 docker-compose up -d --build
 ```
 **補足**<br>
-- docker-compose.ymlのバージョンの記述は不要
+- docker-compose.ymlのバージョンの記述は不要だが、<br/>削除するとmysqlのDockerイメージでエラー発生するので、WARNING出ても使用する。
 ```yml
 version: '3.8'
 ```
@@ -44,9 +44,13 @@ mbstring.internal_encoding = "UTF-8"
 # PHPコンテナ内にログイン
 docker-compose exec php bash
 ```
-```php 
+```php
 // PHPコンテナ内にて
 composer install
+```
+php version=8.2 だと、nette/schema などのパッケージは PHP 8.2未満でしか動作しない 仕様なのでエラー発生する。その時は以下でPHP 8.2対応のパッケージへ更新
+```php
+composer update
 ```
 
 ## timezoneの変更
